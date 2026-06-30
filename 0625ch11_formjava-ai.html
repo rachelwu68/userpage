@@ -263,11 +263,11 @@
 
                 </div>
                 <div class="mb-3 form-check form-switch">
-                <input type="checkbox" class="form-check-input" name="" id="pstatus">
-                <label for="pstatus" class="form-check-label" id="pstatus_text">狀態：產品未上架</label>
+                    <input type="checkbox" class="form-check-input" name="" id="pstatus">
+                    <label for="pstatus" class="form-check-label" id="pstatus_text">狀態：產品未上架</label>
+                </div>
             </div>
-            </div>
-            
+
         </div>
 
 
@@ -293,6 +293,8 @@
     <script src="java/0605boostrap.js"></script>
     <script src="java/jquery-4.0.0.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+
     <script>
         // 確認資料是有輸入顯示flag，任一個沒輸會顯示錯誤
         // 預設為false，所以沒輸也是錯誤
@@ -466,13 +468,29 @@
 
                     let method = $(".method_item:checked").val();
 
+                    //收集傳遞給後端API的資料
+                    productData = {
+                        pname: $("#pname").val().trim(),
+                        pnume: $("#pnum").val().trim(),
+                        pskin: $("#pskin").val().trim(),
+                        psize: $("#psize").val().trim(),
+                        topping: toppingArray.join("/"),
+                        method: method,
+                        pstatus: pstatus,
+                        // 使用java預設時間戳記
+                        created_at: new Date().toLocaleString("zh-TW")
+
+                    }
+
+                    console.log(productData)
+
                     let strHTML = `<h4 class="mt-5"> 產品名稱:${$("#pname").val()} </h4>
                             <h4> 數量: ${$("#pnum").val()} </h4>
                             <h4> 產品餅皮: ${$("#pskin").val()} </h4>
                             <h4> 產品尺寸: ${$("#psize").val()} </h4>
-                            <h4> 產品狀態: ${pstatus} </h4>
                             <h4> 已選取的配料: ${toppingArray.join("/")} </h4>
-                            <h4> 已選取的供應方式: ${method} </h4>`;
+                            <h4> 已選取的供應方式: ${method} </h4>
+                            <h4> 產品狀態: ${pstatus} </h4>`;
 
 
                     // 先寫內文再將原本隱藏的區塊一同顯示  
@@ -496,19 +514,59 @@
 
             // 直接重整頁面，回到初始狀態
             $("#cancel_btn").on("click", function () {
-                window.location.reload();
+                location.reload();
             });
 
 
 
             //確認是否送出
             $("#save_btn").on("click", function () {
-                Swal.fire({
-                    icon: "success",
-                    title: "檔案送出",
-                    text: "資料已建檔",
+                //將productData傳遞至後端API
+                // Optionally the request above could also be done as
+                axios.post('http://localhost:3000/product', productData)
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.status == 201) {
 
-                });
+                            // A dialog with three buttons
+                            // Swal.fire({
+                            //     title: "檔案送出",
+                            //     showDenyButton: false,
+                            //     showCancelButton: false,
+                            //     confirmButtonText: "資料已送出",
+                            //     icon:"success",
+                            //     denyButtonText: ``
+                            // }).then((result) => {
+                            //     /* Read more about isConfirmed, isDenied below */
+                            //     if (result.isConfirmed) {
+                            //         location.reload();
+                            //     }
+                            // });
+                            // 簡易版
+                            Swal.fire({
+                                title: "檔案送出",
+                                text: "資料已送出",
+                                icon:"success",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+
+
+
+
+
 
 
             });
@@ -530,6 +588,7 @@
 
 
         });
+
     </script>
 </body>
 

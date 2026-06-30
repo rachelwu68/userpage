@@ -4,611 +4,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal file</title>
-    <link rel="stylesheet" href="css/Personal.css">
-    <link rel="stylesheet" href="css/all.min.css">
+    <title>Portfolio</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        /* s01 首頁 */
-        .s01 {
-            /* 高度以百分比對應瀏覽器視窗高度 vh (viewport height) */
-            background-color: var(--bg-primary);
-            height: 90vh;
-            position: relative;
+        /* =========================
+         基礎設定
+        ========================= */
+        :root {
+            --primary: #7c3aed;
+            --accent: #06b6d4;
+            --text: #1f2937;
+            --muted: #6b7280;
+            --bg: #ffffff;
+        }
+
+        body {
+            margin: 0;
             font-family: "Noto Sans TC", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            scroll-behavior: smooth;
         }
 
-        .s01 .box01 {
-            width: 200px;
-            height: 200px;
-            background-color: var(--brand-primary);
-            position: absolute;
+        /* =========================
+        NAVBAR
+        ========================= */
+        .navbar {
+            position: fixed;
             top: 0;
-            left: 0;
+            width: 100%;
+            z-index: 999;
         }
 
-        .s01 .box02 {
-            width: 200px;
-            height: 200px;
-            background-color: var(--brand-primary);
+        /* =========================
+        HERO
+        ========================= */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffffff, #f3f4f6);
+            padding: 0 20px;
+        }
+
+        .hero::before,
+        .hero::after {
+            content: "";
             position: absolute;
-            top: 0;
-            right: 0;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.25;
         }
 
-        .s01 .box03 {
-            width: 200px;
-            height: 200px;
-            background-color: var(--brand-primary);
-            position: absolute;
-            bottom: 0;
-            left: 0;
+        .hero::before {
+            background: var(--accent);
+            top: -120px;
+            left: -120px;
         }
 
-        .s01 .box04 {
-            width: 200px;
-            height: 200px;
-            background-color: var(--brand-primary);
-            position: absolute;
-            bottom: 0;
-            right: 0;
+        .hero::after {
+            background: var(--primary);
+            bottom: -120px;
+            right: -120px;
         }
 
-        .s01 .userimg {
-            position: absolute;
-            top: 100px;
-            left: 100px;
-            bottom: 100px;
-            right: 100px;
-            background-image: url(image/code-background.jpg);
-            /* 調整圖片選取位置 左右(從left開始)，上下(從top開始) */
-            background-position: 10px 30%;
-            /* 圖片大小調整的跟格式一樣cover */
-            background-size: cover;
-            /* 圖片效果調整 filter */
-            filter: blur(20px);
-            /* filter: grayscale(0.5); */
-            border-radius: 2%;
-            box-shadow: var(--shadow-colo);
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
         }
 
-        .s01 .usertext {
-            color: var(--text-primary);
-            position: absolute;
-            top: 10%;
-            left: 10%;
-            right: 40%;
-            font-size: 20px;
-
+        .hero h2 {
+            color: var(--primary);
         }
 
-        /* s02 作品集  */
-        .s02 {
+        .hero p {
+            color: var(--muted);
+        }
+
+        .scroll-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            text-decoration: none;
+        }
+
+        
+
+        /* bar */
+        .bar {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+
+        .bar span {
+            display: block;
+            height: 100%;
+            background: linear-gradient(90deg, #7c3aed, #06b6d4);
+        }
+
+        /* =========================
+        TIMELINE
+        ========================= */
+        .timeline {
             padding: 80px 10%;
-            background-color: var(--bg-secondary);
-            text-align: center;
-            font-family: "Noto Sans TC", sans-serif;
+            background: #f9fafb;
         }
 
-        .s02 h2 {
-            font-size: 36px;
-            color: var(--text-primary);
+        .line {
+            border-left: 3px solid #e5e7eb;
+            padding-left: 20px;
         }
 
-        .s02 .card02 {
-            /* 水平排列inline-block */
+        .item {
+            margin-bottom: 25px;
             position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-
         }
 
-        .s02 .card02 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card02 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card02 a {
+        .item::before {
+            content: "";
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
             position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
+            left: -29px;
+            top: 5px;
         }
 
-        .s02 .card03 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
+        /* =========================
+        SKILLS
+        ========================= */
+        .skills {
+            padding: 80px 10%;
+        }
+
+        .skill-grid {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        /* 每個分類卡 */
+        .skill-box {
+            flex: 1;
+            min-width: 280px;
+            background: #f9fafb;
             padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
+            border-radius: 12px;
         }
 
-        .s02 .card03 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
+        /* 分類標題 */
+        .skill-category {
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #111;
         }
 
-        .s02 .card03 p {
+        /* 技能列 */
+        .skill-title {
+            display: flex;
+            justify-content: space-between;
             font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
+            margin-top: 10px;
+        }
+        
+        /* =========================
+        PROJECTS
+        ========================= */
+        .projects {
+            padding: 80px 10%;
         }
 
-        .s02 .card03 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
+        .card {
+            border: none;
+            border-radius: 14px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .card a {
+            margin-top: auto;
+            /* 自動把按鈕推到底部 */
+            align-self: center;
+            /* 水平置中 */
+
+            padding: 6px 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
             text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
+            border-radius: 8px;
         }
 
-        .s02 .card04 {
-            /* 水平排列inline-block */
-            position: relative;
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
+        /* =========================
+        RWD
+        ========================= */
+        @media (max-width:576px) {
 
-        .s02 .card04 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
+            .hero h1 {
+                font-size: 36px;
+            }
 
-        }
+            .hero h2 {
+                font-size: 18px;
+            }
 
-        .s02 .card04 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card04 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card05 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card05 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card05 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card05 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card06 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card06 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card06 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card06 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card07 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card07 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card07 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card07 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-
-
-        .s02 .card08 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card08 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card08 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card08 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card09 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card09 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card09 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card09 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card10 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card10 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card10 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card10 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card11 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card11 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card11 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card11 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
-        }
-
-        .s02 .card12 {
-            /* 水平排列inline-block */
-            position: relative;
-            display: inline-block;
-            margin: 15px;
-            width: 240px;
-            height: 260px;
-            background-color: var(--brand-secondary);
-            padding: 20px;
-            text-align: left;
-            border-radius: 5%;
-            vertical-align: top;
-        }
-
-        .s02 .card12 h3 {
-            font-size: 18px;
-            color: var(--text-secondar);
-            margin-top: 0.5px;
-
-        }
-
-        .s02 .card12 p {
-            font-size: 14px;
-            color: var(--text-secondar);
-            line-height: 1.7;
-
-        }
-
-        .s02 .card12 a {
-            position: absolute;
-            bottom: 12px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            background-color: var(--bg-secondary);
-            padding: 5px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--text-primary);
-            text-align: center;
+            .skills,
+            .timeline,
+            .projects {
+                padding: 60px 20px;
+            }
         }
     </style>
+
 </head>
 
 <body>
-    <section class="s01">
-        <div class="box01"></div>
-        <div class="box02"></div>
-        <div class="box03"></div>
-        <div class="box04"></div>
-        <div class="userimg"></div>
-        <div class="usertext">
-            <h1>XXX個人履歷</h1>
-            <!-- hr為直線 -->
-            <hr>
-            <h2>應徵職位:</h2>
-            <p class="fw-100"> 過往擔任過</p>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-light bg-white shadow-sm">
+        <div class="container">
+            <span class="navbar-brand fw-bold">My Portfolio</span>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <div class="container">
+            <img src="https://images.unsplash.com/photo-1715738419272-f7bff99b9a73" class="rounded-circle shadow mb-4"
+                width="180" alt="個人照片">
+            <h1>XXX</h1>
+
+            <h2>前端工程師 Frontend Developer</h2>
+
+            <hr class="w-25 mx-auto">
+
+            <p class="lead">
+                應徵職位：前端工程師
+            </p>
+
+            <p>
+                持續投入前端技術學習，完成多項網頁切版、商品管理、
+                API 串接與表單驗證專案，熟悉 RWD 響應式設計，
+                並具備獨立完成前端專案的能力。
+            </p>
+
+            <a href="#timeline" class="scroll-btn">
+                開始瀏覽 ↓
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline" id="timeline">
+        <h2 class="text-center mb-4">經歷</h2>
+
+        <div class="container line">
+
+            <div class="item">
+                <h5>2025 - Frontend Learning</h5>
+                <p>完成 HTML / CSS / JavaScript 基礎與作品</p>
+            </div>
+
+            <div class="item">
+                <h5>2025 - API Project</h5>
+                <p>AJAX 串接與資料渲染專案</p>
+            </div>
+
+            <div class="item">
+                <h5>2026 - Portfolio</h5>
+                <p>建立個人作品集並部署 GitHub Pages</p>
+            </div>
+
         </div>
     </section>
-    <section class="s02">
-        <h2>我的作品</h2>
-        <!-- 作品02 -->
-        <div class="card02">
-            <h3>HTML/CSS 網頁切版入門</h3>
-            <p>使用原生 CSS 媒體查詢（Media Queries）實作 RWD 響應式佈局，在行動端自動將導覽列從水平排列切換為垂直單欄卡片，並運用 CSS 變數（Variables）管理全域主題色彩與字型</p>
-            <!-- 連結點擊後另開視窗target="blank" -->
-            <a href="0602.html" target="blank">查看作品</a>
-        </div>
-        <!-- 作品03 -->
-        <div class="card03">
-            <h3>ERP商品清單</h3>
-            <p>利用 Bootstrap 5 搭配自訂 CSS 媒體查詢，將傳統 ERP 表格在手機端自動重組為卡片式 RWD 響應式排版，並具備低庫存自動色塊警示功能</p>
-            <!-- 連結點擊後另開視窗target="blank" -->
-            <a href="0605table-ai.html" target="blank">查看作品</a>
-        </div>
-        <!-- 作品04 -->
-        <div class="card04">
-            <h3>旅遊餐廳資料渲染</h3>
-            <p>結合 Bootstrap 5 RWD 網格系統與 jQuery AJAX 技術，實現動態讀取 API
-                資料並進行資料清洗與錯誤防護（空值補正、欄位驗證），再將資料動態渲染為響應式卡片介面，使內容能隨螢幕尺寸流暢變化並提升整體瀏覽體驗</p>
-            <!-- 連結點擊後另開視窗target="blank" -->
-            <a href="0618 practice2-aidata.html" target="blank">查看作品</a>
-        </div>
 
-        <div class="card05">
-            <h3>產品建檔系統</h3>
-            <p>實作前端即時表單驗證（Input / Change 事件），並透過 JavaScript 控制資料驗證與送出條件，建立具備錯誤提示與即時回饋的產品建檔流程</p>
-            <!-- 連結點擊後另開視窗target="blank" -->
-            <a href="0625ch11_formjava-ai.html" target="blank">查看作品</a>
-        </div>
+    
+     <!-- SKILLS -->
+    <section class="skills" id="skills">
 
+        <h2 class="text-center mb-5">專業技能</h2>
+
+        <div class="container">
+
+            <div class="skill-grid">
+
+                <!-- 前端 -->
+                <div class="skill-box">
+
+                    <h4 class="skill-category text-center">前端開發</h4>
+
+                    <div class="skill-title">
+                        <span>HTML / CSS</span>
+                        <span>90%</span>
+                    </div>
+                    <div class="bar"><span style="width:90%"></span></div>
+
+                    <div class="skill-title">
+                        <span>JavaScript</span>
+                        <span>80%</span>
+                    </div>
+                    <div class="bar"><span style="width:80%"></span></div>
+
+                    <div class="skill-title">
+                        <span>Bootstrap</span>
+                        <span>85%</span>
+                    </div>
+                    <div class="bar"><span style="width:85%"></span></div>
+
+                    <div class="skill-title">
+                        <span>jQuery / AJAX</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="bar"><span style="width:75%"></span></div>
+
+                    <div class="skill-title">
+                        <span>Figma</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="bar"><span style="width:70%"></span></div>
+
+                </div>
+
+                <div class="skill-box">
+
+                    <h4 class="skill-category text-center">後端開發</h4>
+
+                    <div class="skill-title">
+                        <span>PHP</span>
+                        <span>70%</span>
+                    </div>
+                    <div class="bar"><span style="width:70%"></span></div>
+
+                    <div class="skill-title">
+                        <span>MySQL / SQL</span>
+                        <span>75%</span>
+                    </div>
+                    <div class="bar"><span style="width:75%"></span></div>
+
+                    <div class="skill-title">
+                        <span>Python</span>
+                        <span>65%</span>
+                    </div>
+                    <div class="bar"><span style="width:65%"></span></div>
+
+                </div>
+
+            </div>
+
+    </section>
+    <!-- PROJECTS -->
+    <section class="projects" id="projects">
+
+        <h2 class="text-center mb-5">
+            我的作品
+        </h2>
+
+        <div class="container">
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card p-3 h-100">
+                        <h5 class="fw-bold mb-3 text-center">HTML/CSS 網頁切版入門</h5>
+
+                        <p>
+                            獨立完成響應式企業形象網站，支援桌機與行動裝置瀏覽，
+                            建立一致的版面配置與主題樣式，提升網站可讀性與維護性。
+                        </p>
+
+                        <a href="0602.html" target="_blank">
+                            查看作品
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card p-3 h-100">
+                        <h5 class="fw-bold mb-3 text-center">ERP 商品清單</h5>
+
+                        <p>
+                            開發商品管理介面，完成庫存資訊展示、低庫存警示與
+                            RWD 響應式排版，讓使用者能在不同裝置快速查閱商品資料。
+                        </p>
+
+                        <a href="0605table-ai.html" target="_blank">
+                            查看作品
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card p-3 h-100">
+                        <h5 class="fw-bold mb-3 text-center">旅遊餐廳資料渲染</h5>
+
+                        <p>
+                            串接政府公開 API，完成旅遊景點與餐廳資料的動態載入、
+                            篩選與畫面渲染，並加入例外處理提升資料顯示穩定性。
+                        </p>
+
+                        <a href="0618 practice2-aidata.html" target="_blank">
+                            查看作品
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card p-3 h-100">
+                        <h5 class="fw-bold mb-3 text-center">產品建檔系統</h5>
+
+                        <p>
+                            建立產品建檔流程，實作即時表單驗證、欄位檢查與資料送出控制，
+                            提升使用者輸入效率並降低資料錯誤率。
+                        </p>
+
+                        <a href="0625ch11_formjava-ai.html" target="_blank">
+                            查看作品
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
 
     </section>
 
