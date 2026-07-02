@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch11 表單練習(JavaScript)</title>
+    <link rel="stylesheet" href="css/0605boostrap.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /* =====================================
+                全域設定
+        ===================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body.bg-light {
+
+            background: #fffaf5;
+
+            font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+
+            color: #4b5563;
+
+            overflow-x: hidden;
+        }
+
+        .container {
+
+            max-width: 1100px !important;
+        }
+
+
+        /* =====================================
+        Navbar
+        ===================================== */
+
+        .navbar {
+
+            background: #ffffff !important;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+
+            padding: .8rem 1rem;
+            
+        }
+
+        .navbar-brand {
+
+            color: #b45309 !important;
+
+            font-weight: 700;
+
+            font-size: 1.25rem;
+        }
+
+        .nav-link {
+
+            color: #4b5563 !important;
+
+            transition: .25s;
+        }
+
+        .nav-link:hover {
+
+            color: #d97706 !important;
+        }
+
+        .btn-outline-success {
+            
+            color: #d97706;
+
+            border-color: #d97706;
+        }
+
+        .btn-outline-success:hover {
+
+            background: #d97706;
+
+            border-color: #d97706;
+
+            color: white;
+        }
+
+        .navbar .form-control {
+
+            border-radius: 10px;
+        }
+
+        .navbar .form-control:focus {
+
+            border-color: #d97706;
+
+            box-shadow: 0 0 0 .2rem rgba(217, 119, 6, .15);
+        }
+
+        /* =====================================
+        標題
+        ===================================== */
+
+        .display-3 {
+
+            width: 100% !important;
+
+            text-align: center;
+
+            font-size: 2.3rem !important;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            padding: 15px;
+
+            color: #fff !important;
+
+            border-radius: 15px;
+
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
+        }
+
+        /* =====================================
+        卡片
+        ===================================== */
+
+        #home .col-md-6 {
+
+            width: 100%;
+
+            max-width: 700px;
+
+            margin: auto;
+
+            background: #fff;
+
+            border-top: 5px solid #d97706;
+
+            border-radius: 18px;
+
+            padding: 35px;
+
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+        }
+
+        /* =====================================
+        Label
+        ===================================== */
+
+        .form-label {
+
+            font-weight: 700;
+
+            color: #92400e;
+
+            margin-bottom: 6px;
+        }
+
+        /* =====================================
+         Input
+        ===================================== */
+
+        .form-control,
+        .form-select {
+
+            border-radius: 10px;
+
+            border: 1px solid #e5d7ca;
+
+            padding: 11px 14px;
+
+            transition: .25s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+
+            border-color: #d97706;
+
+            box-shadow: 0 0 0 .2rem rgba(217, 119, 6, .15);
+        }
+
+        /* =====================================
+        Topping
+        ===================================== */
+
+        #topping_group {
+
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 10px;
+
+            background: #fffaf5;
+
+            border: 1px solid #fde3c3;
+
+            border-radius: 12px;
+
+            padding: 15px;
+        }
+
+        #topping_group .form-check {
+
+            background: #fff;
+
+            border: 1px solid #f6dfc7;
+
+            border-radius: 10px;
+
+            padding: 8px 18px;
+
+            transition: .25s;
+        }
+
+        #topping_group .form-check:hover {
+
+            background: #fff7ed;
+        }
+
+        /* =====================================
+        Radio
+        ===================================== */
+
+        #method_group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            background: #fffaf5;
+
+            border: 1px solid #fde3c3;
+
+            border-radius: 12px;
+
+            padding: 15px;
+        }
+
+        #method_group .form-check {
+
+            padding: 8px;
+
+            border-radius: 8px;
+
+            transition: .25s;
+        }
+
+        #method_group .form-check:hover {
+
+            background: #fff7ed;
+        }
+
+        /* =====================================
+        Switch
+        ===================================== */
+
+        .form-check.form-switch {
+
+            margin-top: 18px;
+
+            background: #fff;
+
+            border: 1px solid #f3e8dc;
+
+            border-radius: 12px;
+
+            padding: 15px 55px;
+
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+        }
+
+        /* =====================================
+        Buttons
+        ===================================== */
+
+        #ok_btn {
+
+            background: #d97706;
+
+            border: none;
+
+            color: #fff;
+
+            padding: 10px 25px;
+
+            font-weight: 600;
+
+            border-radius: 10px;
+
+            transition: .3s;
+        }
+
+        #ok_btn:hover {
+
+            background: #b45309;
+        }
+
+        #cancel_btn {
+
+            padding: 10px 25px;
+
+            border-radius: 10px;
+        }
+
+        #save_btn {
+
+            background: #d97706;
+
+            border: none;
+
+            padding: 10px 25px;
+
+            border-radius: 10px;
+        }
+
+        #save_btn:hover {
+
+            background: #b45309;
+        }
+
+        #reckeck_btn {
+
+            border-radius: 10px;
+        }
+
+        /* =====================================
+         明細確認
+        ===================================== */
+
+        #s02 .display-5 {
+
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+
+            color: #fff;
+
+            padding: 12px;
+
+            border-radius: 12px;
+
+            font-weight: bold;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .12);
+        }
+
+        /* =====================================
+         明細內容
+        ===================================== */
+
+        #showmessage {
+
+            background: #fff;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            box-shadow: 0 5px 12px rgba(0, 0, 0, .06);
+        }
+
+        #showmessage h4 {
+
+            font-size: 1rem;
+
+            color: #374151;
+
+            padding: 12px 8px;
+
+            border-bottom: 1px solid #f3e8dc;
+        }
+
+        #showmessage h4:last-child {
+
+            border-bottom: none;
+        }
+
+        /* =====================================
+        Bootstrap Row
+        ===================================== */
+
+        .row {
+
+            margin-left: 0 !important;
+
+            margin-right: 0 !important;
+        }
+
+        /* =====================================
+            平板
+        ===================================== */
+
+        @media(max-width:992px) {
+
+            .display-3 {
+
+                font-size: 2rem !important;
+            }
+
+            #home .col-md-6 {
+
+                max-width: 95%;
+            }
+
+        }
+
+        /* =====================================
+        手機
+        ===================================== */
+
+        @media(max-width:768px) {
+
+            .display-3 {
+
+                font-size: 1.6rem !important;
+
+                padding: 12px;
+            }
+
+            #home .col-md-6 {
+
+                padding: 22px;
+            }
+
+            #topping_group {
+
+                grid-template-columns: 1fr;
+            }
+
+            .form-check.form-switch {
+
+                padding: 15px 20px;
+            }
+
+            .text-end {
+
+                text-align: center !important;
+            }
+
+            #ok_btn,
+            #cancel_btn,
+            #save_btn,
+            #reckeck_btn {
+
+                width: 100%;
+
+                margin-bottom: 10px;
+            }
+
+        }
+
+        /* =====================================
+        超小手機
+        ===================================== */
+
+        @media(max-width:576px) {
+
+            .display-3 {
+
+                font-size: 1.35rem !important;
+            }
+
+            .form-control,
+            .form-select {
+
+                font-size: 15px;
+            }
+
+            .form-label {
+
+                font-size: 15px;
+            }
+
+            #showmessage h4 {
+
+                font-size: .95rem;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body class="bg-light">
+    <!-- 建立navbar導覽列 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">後臺管理</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/0625ch11_formproduct-ai.html">產品建檔</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/0702ch11-productlist-ai.html">產品列表</a>
+                    </li>
+                </ul>
+                <form class="d-flex ">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" >Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="container py-3">
+        <div class="display-3 fw-300 text-center py-2">產品建檔</div>
+        <div class="row justify-content-center" id="home">
+            <!-- for 和 id 可以用一樣名稱但是功能不同 -->
+            <div class="col-md-6 mt-5">
+                <div class="mb-3 form-floating">
+                    <input type="text" class="form-control form-control-lg" name="" id="pname" placeholder="">
+                    <label for="pname" class="form-label">產品名稱(字數1-6)</label>
+                    <div class="valid-feedback">符合規定</div>
+                    <div class="invalid-feedback">不符合規定，請重新輸入</div>
+                </div>
+                <div class="mb-3">
+                    <label for="pnum" class="form-label">數量(1-10)</label>
+                    <input type="number" class="form-control form-control-lg is-invalid" value="0" min="1" max="10"
+                        name="" id="pnum">
+                    <div class="valid-feedback">符合規定</div>
+                    <div class="invalid-feedback">不符合規定，請重新輸入</div>
+                </div>
+
+                <!-- 建立datakist -->
+                <div class="mb-3">
+                    <label for="pskin">產品餅皮</label>
+                    <input type="text" name="" id="pskin" list="skindescription"
+                        class="form-select form-select-lg is-invalid" placeholder="請輸入您需要的餅皮(最多2字)">
+                    <datalist id="skindescription">
+                        <option value="薄皮"></option>
+                        <option value="鬆厚"></option>
+                        <option value="脆皮"></option>
+                    </datalist>
+                    <div class="valid-feedback">已選擇</div>
+                    <div class="invalid-feedback">請選擇餅皮</div>
+                </div>
+                <div class="mb-3">
+                    <label for="psize">產品尺寸</label>
+                    <select name="" id="psize" class="form-select form-select-lg is-invalid">
+                        <option value="" class="text-center" disabled selected>**請選擇產品尺寸***</option>
+                        <option value="6吋">6吋</option>
+                        <option value="8吋">8吋</option>
+                        <option value="12吋">12吋</option>
+                    </select>
+                    <div class="valid-feedback">已選擇</div>
+                    <div class="invalid-feedback">請選擇尺寸</div>
+
+
+                </div>
+
+                <!-- //預設為已上架後面加入checked表示被勾選 -->
+
+                <!-- <div class="mb-3 form-check form-switch">
+                    <input type="checkbox" class="form-check-input" name="" id="pstatus" checked>
+                    <label for="pstatus" class="form-check-label" id="pstatus_text">狀態：產品已上架</label>
+                </div> -->
+
+                <div class="mb-3 ">
+                    <div class="form-label fw-900 fw-bold">可加購其他配料(至少選一種)</div>
+                    <div id="topping_group" class="is-invalid">
+                        <!-- value沒有加選項的話。後面陣列會無法顯示名稱，只會顯示default資料"on" -->
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input topping_item ms-2" name="" id="" value="鳳梨">
+                            <label for="" class="form-check-label ms-2">鳳梨</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input topping_item ms-2" name="" id="" value="玉米">
+                            <label for="" class="form-check-label ms-2">玉米</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input topping_item ms-2" name="" id="" value="培根">
+                            <label for="" class="form-check-label ms-2">培根</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input topping_item ms-2" name="" id="" value="火腿">
+                            <label for="" class="form-check-label ms-2">火腿</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input topping_item ms-2" name="" id="" value="牛肉">
+                            <label for="" class="form-check-label ms-2">牛肉</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input topping_item ms-2" name="" id="" value="燻雞">
+                            <label for="" class="form-check-label ms-2">燻雞</label>
+                        </div>
+
+                    </div>
+                    <div class="valid-feedback">已選擇配料</div>
+                    <div class="invalid-feedback">請至少選一種配料</div>
+
+
+                </div>
+
+                <div class="mb-3 ">
+                    <div class="form-label fw-900 fw-bold">供應方式</div>
+                    <div id="method_group" class="is-invalid">
+                        <div class="form-check">
+
+                            <!-- name要與前面id相同才可以變單選 -->
+                            <input type="radio" class="form-check-input method_item ms-2" name="method" id="radio01"
+                                value="外送">
+                            <label for="" class="form-check-label ms-2">外送</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input method_item ms-2" name="method" id="radio02"
+                                value="外帶">
+                            <label for="" class="form-check-label ms-2">外帶</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input method_item ms-2" name="method" id="radio03"
+                                value="內用">
+                            <label for="" class="form-check-label ms-2">內用</label>
+                        </div>
+
+                    </div>
+                    <div class="valid-feedback">已選擇供應方式</div>
+                    <div class="invalid-feedback">請選擇供應方式</div>
+
+
+                </div>
+                <div class="mb-3 form-check form-switch">
+                    <input type="checkbox" class="form-check-input" name="" id="pstatus">
+                    <label for="pstatus" class="form-check-label" id="pstatus_text">狀態：產品未上架</label>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class="text-end mt-lg-4">
+            <button id="ok_btn" class="btn btn-primary">確認</button>
+            <button id="cancel_btn" class="btn btn-secondary">取消
+            </button>
+        </div>
+
+        <!-- d-none隱藏字眼 -->
+        <div class="row justify-content-center mt-5 d-none" id="s02">
+            <div class="display-5 fw-900 bg-success text-center text-bg-secondary py-2 rounded-3">飲料產品建檔-明細確認</div>
+            <div class="col-md-6 p-3 text-end">
+                <div id="showmessage"></div>
+                <button id="save_btn" class="btn btn-primary">確認送出
+                </button>
+                <button id="reckeck_btn" class="btn btn-secondary">取消</button>
+
+            </div>
+        </div>
+    </div>
+    <script src="java/0605boostrap.js"></script>
+    <script src="java/jquery-4.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+
+    <script>
+        // 確認資料是有輸入顯示flag，任一個沒輸會顯示錯誤
+        // 預設為false，所以沒輸也是錯誤
+        let flag_pname = false;
+        let flag_pnum = false;
+        let flag_pskin = false;
+        let flag_psize = false;
+        let flag_topping = false;
+        let flag_method = false;
+
+        $(function () {
+            //監聽#pname ->input觸發開始function
+            $("#pname").on("input", function () {
+                // $this pname裡面，val() value縮寫，代表輸入的值
+                console.log($(this).val().length);
+                // 資料過濾：去除前後空白鍵造成的錯誤內容
+                let pname = $(this).val().trim();
+
+                /*未加入remove前，如果長度超過6後，會同時出現is-valid跟is-invalid的內容
+                if ($(this).val().length>=1 && $(this).val().length<6){
+                    //符合規定，class類別加入is-valid
+                    $(this).addClass("is-valid");
+                }else{
+                    //不符合規定
+                    $(this).addClass("is-invalid");
+                }
+                */
+
+                if (pname.length >= 1 && pname.length <= 6) {
+                    //符合規定，class類別加入is-valid
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_pname = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_pname = false;
+                }
+
+
+            });
+
+            //監聽#pnum 
+            $("#pnum").on("input", function () {
+                console.log($(this).val());
+                let pnum = Number($(this).val().trim());
+
+                if (pnum >= 1 && pnum <= 10) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_pnum = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_pnum = false;
+                }
+
+            });
+
+
+            //監聽#pskin 
+            $("#pskin").on("input", function () {
+                console.log($(this).val().length);
+                let pskin = $(this).val().trim();
+
+                if (pskin.length >= 1 && pskin.length <= 2) {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_pskin = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_pskin = false;
+                }
+
+            });
+
+            // 監聽psize，select 事件是 文字被反白選取時 才會觸發，這裡要用change 表示狀態改變
+            $("#psize").on("change", function () {
+                console.log($(this).val());
+
+                let psize = $(this).val().trim();
+                if (psize != "") {
+                    $(this).removeClass("is-invalid");
+                    $(this).addClass("is-valid");
+                    flag_psize = true;
+                } else {
+                    $(this).removeClass("is-valid");
+                    $(this).addClass("is-invalid");
+                    flag_psize = false;
+                }
+
+            });
+
+            //監聽.topping_item    
+            $(".topping_item").on("change", function () {
+                console.log($(".topping_item:checked").length);
+                let count = ($(".topping_item:checked").length);
+                if (count > 0) {
+
+                    // . class選擇，# id選擇
+                    $("#topping_group").removeClass("is-invalid");
+                    $("#topping_group").addClass("is-valid");
+                    flag_topping = true;
+                } else {
+                    $("#topping_group").removeClass("is-valid");
+                    $("#topping_group").addClass("is-invalid");
+                    flag_topping = false;
+                }
+
+
+            });
+
+            //監聽method_item
+            $(".method_item").on("change", function () {
+                console.log($(".method_item:checked").val())
+
+                let method = $(".method_item:checked").val();
+
+                if (method != undefined) {
+                    $("#method_group").removeClass("is-invalid");
+                    $("#method_group").addClass("is-valid");
+                    flag_method = true;
+                } else {
+                    $("#method_group").removeClass("is-valid");
+                    $("#method_group").addClass("is-invalid");
+                    flag_method = false;
+                }
+
+
+            });
+
+
+
+            // prop("checked")取得或設定 checkbox 是否被勾選
+
+            $("#pstatus").on("change", function () {
+                console.log($(this).prop("checked"));
+
+                let pstatus = $(this).prop("checked");
+                // pstatus為true的狀態->已被勾選被勾選
+                if (pstatus) {
+                    $("#pstatus_text").text("狀態：產品已上架");
+
+                } else {
+                    $("#pstatus_text").text("狀態：產品未上架");
+
+                }
+
+            });
+
+
+            //按鈕監聽 ok_btn
+            $("#ok_btn").on("click", function () {
+
+
+                if (flag_pname && flag_pnum && flag_pskin && flag_psize && flag_topping && flag_method) {
+                    console.log("Hello click")
+                    // 顯示飲料產品建檔 - 明細確認
+                    let pstatus = $("#pstatus").prop("checked") ? "上架" : "下架";
+                    //收集每一個選擇的配料
+                    //建立空組合，不能被印出來
+                    let toppingArray = [];
+                    $(".topping_item:checked").each(function () {
+                        console.log($(this).val());
+                        toppingArray.push($(this).val());
+                    });
+
+                    console.log(toppingArray);
+
+                    let method = $(".method_item:checked").val();
+
+                    //收集傳遞給後端API的資料
+                    productData = {
+                        pname: $("#pname").val().trim(),
+                        pnum: $("#pnum").val().trim(),
+                        pskin: $("#pskin").val().trim(),
+                        psize: $("#psize").val().trim(),
+                        topping: toppingArray.join("/"),
+                        method: method,
+                        pstatus: pstatus,
+                        // 使用java預設時間戳記
+                        created_at: new Date().toLocaleString("zh-TW")
+
+                    }
+
+                    console.log(productData)
+
+                    let strHTML = `<h4 class="mt-5"> 產品名稱:${$("#pname").val()} </h4>
+                            <h4> 數量: ${$("#pnum").val()} </h4>
+                            <h4> 產品餅皮: ${$("#pskin").val()} </h4>
+                            <h4> 產品尺寸: ${$("#psize").val()} </h4>
+                            <h4> 已選取的配料: ${toppingArray.join("/")} </h4>
+                            <h4> 已選取的供應方式: ${method} </h4>
+                            <h4> 產品狀態: ${pstatus} </h4>`;
+
+
+                    // 先寫內文再將原本隱藏的區塊一同顯示  
+                    $("#showmessage").html(strHTML);
+                    $("#s02").removeClass("d-none");
+
+
+                } else {
+
+                    // 方式一
+                    // alert("輸入資料有誤，請修正");
+                    // 方式二
+                    Swal.fire({
+                        icon: "error",
+                        title: "錯誤",
+                        text: "輸入資料有誤，請修正",
+                    });
+
+                }
+            });
+
+            // 直接重整頁面，回到初始狀態
+            $("#cancel_btn").on("click", function () {
+                location.reload();
+            });
+
+
+
+            //確認是否送出
+            $("#save_btn").on("click", function () {
+                //將productData傳遞至後端API
+                // Optionally the request above could also be done as
+                axios.post('http://localhost:3000/product', productData)
+                    .then(function (response) {
+                        console.log(response);
+                        if (response.status == 201) {
+
+                            // A dialog with three buttons
+                            // Swal.fire({
+                            //     title: "檔案送出",
+                            //     showDenyButton: false,
+                            //     showCancelButton: false,
+                            //     confirmButtonText: "資料已送出",
+                            //     icon:"success",
+                            //     denyButtonText: ``
+                            // }).then((result) => {
+                            //     /* Read more about isConfirmed, isDenied below */
+                            //     if (result.isConfirmed) {
+                            //         location.reload();
+                            //     }
+                            // });
+                            // 簡易版
+                            Swal.fire({
+                                title: "檔案送出",
+                                text: "資料已送出",
+                                icon: "success",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            });
+
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    .finally(function () {
+                        // always executed
+                    });
+
+
+
+
+
+
+
+            });
+
+            // 回到確認按鈕前
+            $("#reckeck_btn").on("click", function () {
+
+                $("#s02").addClass("d-none");
+
+            });
+
+
+
+
+
+
+
+
+
+
+        });
+
+    </script>
+</body>
+
+</html>
