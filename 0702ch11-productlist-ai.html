@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch11 表單練習(JavaScript)</title>
+    <link rel="stylesheet" href="css/0605boostrap.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        /*==========================
+    全域
+    ===========================*/
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body.bg-light {
+
+            background: #fffaf5;
+
+            font-family: "Segoe UI", "Noto Sans TC", sans-serif;
+
+            color: #4b5563;
+
+            overflow-x: hidden;
+        }
+
+        .container {
+
+            max-width: 1100px !important;
+        }
+
+
+        /* =====================================
+        Navbar
+        ===================================== */
+
+        .navbar {
+
+            background: #ffffff !important;
+
+            box-shadow: 0 2px 10px rgba(0, 0, 0, .06);
+
+            padding: .8rem 1rem;
+
+        }
+
+        .navbar-brand {
+
+            color: #b45309 !important;
+
+            font-weight: 700;
+
+            font-size: 1.25rem;
+        }
+
+        .nav-link {
+
+            color: #4b5563 !important;
+
+            transition: .25s;
+        }
+
+        .nav-link:hover {
+
+            color: #d97706 !important;
+        }
+
+        .btn-outline-success {
+
+            color: #d97706;
+
+            border-color: #d97706;
+        }
+
+        .btn-outline-success:hover {
+
+            background: #d97706;
+
+            border-color: #d97706;
+
+            color: white;
+        }
+
+        .navbar .form-control {
+
+            border-radius: 10px;
+        }
+
+        .navbar .form-control:focus {
+
+            border-color: #d97706;
+
+            box-shadow: 0 0 0 .2rem rgba(217, 119, 6, .15);
+        }
+
+        /*==========================
+        標題
+        ===========================*/
+
+        .display-3 {
+
+            background: linear-gradient(90deg, #d97706, #f59e0b);
+            color: white;
+
+            border-radius: 12px;
+
+            padding: 15px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .12);
+
+            font-size: 2.3rem !important;
+        }
+
+
+        /*==========================
+        Table
+        ===========================*/
+
+        .erp-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            background: white;
+
+            border-radius: 12px;
+
+            overflow: hidden;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, .08);
+        }
+
+
+        /*==========================
+         Header
+        ===========================*/
+
+        .erp-header th {
+
+            background: #d97706;
+
+            color: white;
+
+            padding: 14px;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            border: none;
+        }
+
+
+        /*==========================
+        td
+        ===========================*/
+
+        .erp-table td {
+
+            padding: 12px;
+
+            text-align: center;
+
+            border: 1px solid #f3f4f6;
+
+            vertical-align: middle;
+        }
+
+
+        /*==========================
+        Zebra
+        ===========================*/
+
+        .erp-table tbody tr:nth-child(even) {
+
+            background: #fffaf5;
+        }
+
+
+        /*==========================
+        Hover
+        ===========================*/
+
+        .erp-table tbody tr:hover {
+
+            background: #fff4e6;
+
+            transition: .25s;
+        }
+
+
+        /*==========================
+        第一欄
+        ===========================*/
+
+        .erp-table td:first-child {
+
+            color: #d97706;
+
+            font-weight: bold;
+        }
+
+
+        /*==========================
+         配料
+        ===========================*/
+
+        .erp-table td:nth-child(6) {
+
+            color: #92400e;
+        }
+
+
+        /*==========================
+         建檔時間
+        ===========================*/
+
+        .erp-table td:last-child {
+
+            color: #6b7280;
+
+            font-size: 14px;
+        }
+
+
+        /*==========================
+       狀態
+        ===========================*/
+
+        .status-up {
+
+            background: #dcfce7;
+
+            color: #15803d;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-weight: 600;
+        }
+
+        .status-down {
+
+            background: #fee2e2;
+
+            color: #dc2626;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-weight: 600;
+        }
+
+
+        /*==========================
+          Caption
+        ===========================*/
+
+        caption {
+
+            caption-side: top;
+
+            text-align: left;
+
+            font-size: 15px;
+
+            color: #78716c;
+
+            padding-bottom: 12px;
+        }
+
+        /*==========================
+        頁碼
+        ===========================*/
+
+        .pagination .page-item.active .page-link {
+            background-color: #db984c;
+            /* 主色 */
+            border-color: #db984c;
+            color: #fff;
+        }
+
+        .pagination .page-link {
+            color: #706e6e;
+        }
+
+        .pagination .page-link:hover {
+            background-color: #fff4e6;
+            color: #b45309;
+            border-color: #f59e0b;
+        }
+
+        /*==========================
+        平板
+        ===========================*/
+
+        @media(max-width:992px) {
+
+            .display-3 {
+
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            .erp-table {
+
+                font-size: 14px;
+            }
+
+        }
+
+
+        /*==========================
+        手機
+        ===========================*/
+
+        @media(max-width:768px) {
+
+            .display-3 {
+
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+                padding: 12px;
+            }
+
+
+
+            /* 隱藏表頭 */
+            .table-rwd caption,
+            .table-rwd thead {
+
+                display: none;
+            }
+
+            /* 每筆資料變成卡片 */
+            .table-rwd tbody tr {
+
+                display: block;
+
+                margin-bottom: 18px;
+
+                background: white;
+
+                border-radius: 12px;
+
+                padding: 15px;
+
+                box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+            }
+
+            /* 每個欄位 */
+            .table-rwd tbody td {
+
+                display: flex;
+
+                justify-content: flex-start;
+
+                align-items: center;
+
+                border: none;
+
+                gap: 10px;
+
+                border-bottom: 1px dashed #ddd;
+
+                padding: 10px 0;
+                font-size: 18px;
+
+            }
+
+            /* 左邊欄位名稱 */
+            .table-rwd tbody td:last-child {
+
+                border-bottom: none;
+                font-size: 18px;
+            }
+
+            .table-rwd tbody td::before {
+
+                content: attr(data-th);
+
+                color: #b45309;
+
+                font-weight: bold;
+                padding-right: 30px;
+                
+                flex: 0 0 200px;
+                
+            }
+
+            .table-rwd tbody tr:hover {
+
+                background: #fff7ed;
+            }
+
+            /* 分頁置中 */
+            .pagination {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
+
+            .pagination .page-link {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+
+        }
+    </style>
+
+
+
+</head>
+
+<body class="bg-light">
+    <!-- 建立navbar導覽列 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">後臺管理</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/0625ch11_formproduct-ai.html">產品建檔</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/0702ch11-productlist-ai.html">產品列表</a>
+                    </li>
+                </ul>
+                <form class="d-flex ">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+
+        <div class="display-3 text-center py-2">
+            產品列表
+        </div>
+        <!-- 選擇頁面筆數下拉式選單 -->
+        <div class="d-flex justify-content-end align-items-center mt-4 mb-3">
+            <label for="">每頁顯示</label>
+            <select name="" id="pageSizeSelect" class="form-select form-select-sm ms-3" style="width: 80px;">
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+
+            <label for="" class="ms-3">筆</label>
+        </div>
+
+
+        <table class="table erp-table table-rwd">
+            <caption>商品庫存管理明細表</caption>
+
+            <thead class="erp-header">
+                <tr>
+                    <th>產品編號</th>
+                    <th>產品名稱</th>
+                    <th>產品數量</th>
+                    <th>產品餅皮</th>
+                    <th>產品尺寸</th>
+                    <th>選擇配料</th>
+                    <th>供應方式</th>
+                    <th>產品狀態</th>
+                    <th>建檔時間</th>
+                </tr>
+            </thead>
+
+            <tbody id="datalist">
+
+                <tr>
+                    <td data-th="產品編號">0</td>
+                    <td data-th="產品名稱">夏威夷披薩</td>
+                    <td data-th="產品數量">5</td>
+                    <td data-th="產品餅皮">薄皮</td>
+                    <td data-th="產品尺寸">8吋</td>
+                    <td data-th="選擇配料">鳳梨/火腿</td>
+                    <td data-th="供應方式">內用</td>
+                    <td data-th="產品狀態"><span class="status-up">狀態：產品已上架</span></td>
+                    <td data-th="建檔時間">2020/03/18 09:25</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+        <!-- 建立分頁按鈕 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id="pagination">
+                <!-- <li class="page-item"><a class="page-link" href="#">上一頁</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">下一頁</a></li> -->
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+    <script src="java/0605boostrap.js"></script>
+    <script src="java/jquery-4.0.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.13.2/dist/axios.min.js"></script>
+
+    <script>
+        //為了使資料產生分頁調整: 產空集合->呼叫放入資料的集合->渲染資料 -->拆分
+        //建立一個空白的清單表
+        let cleanData = [];
+        let currentPage = 1; //起始頁數
+        let pageSize = 10; //多少筆要分頁
+        //主程式
+        $(function () {
+            //取得資料
+            axios
+                .get("http://localhost:3000/product")
+                .then(function (response) {
+                    console.log(response);
+                    //資料清洗
+                    cleanData = response.data.map(function (item, index) {
+
+                        return {
+                            id: item.id,
+                            pname: (item.pname ?? "No_name 未填寫產品名稱").trim() == "" ? "No_name 未填寫產品名稱" : (item.pname ?? "No_name 未填寫產品名稱").trim(),
+                            pnum: (item.pnum ?? "No_number 未填寫產品數量").trim() == "" ? "No_number 未填寫產品數量" : (item.pnum ?? "No_number 未填寫產品數量").trim(),
+                            pskin: (item.pskin ?? "No_skin 未填寫產品餅皮").trim() == "" ? "No_skin 未填寫產品餅皮" : (item.pskin ?? "No_skin 未填寫產品餅皮").trim(),
+                            psize: (item.psize ?? "No_size 未填寫產品尺寸").trim() == "" ? "No_size 未填寫產品尺寸" : (item.psize ?? "No_size 未填寫產品尺寸").trim(),
+                            topping: (item.topping ?? "No_topping 未填寫選擇配料").trim() == "" ? "No_topping 未填寫選擇配料" : (item.topping ?? "No_topping 未填寫選擇配料").trim(),
+                            method: (item.method ?? "No_method 未填寫供應方式").trim() == "" ? "No_method 未填寫供應方式" : (item.method ?? "No_method 未填寫供應方式").trim(),
+                            pstatus: (item.pstatus ?? "No_pstatus 還未上架").trim() == "" ? "No_pstatus 還未上架" : (item.pstatus ?? "No_pstatus 還未上架").trim(),
+                            created_at: (item.created_at ?? "No_time").trim() == "" ? "No_time" : (item.created_at ?? "No_time").trim()
+
+                        }
+
+
+                    });
+                    console.log("原始的資料", response.data);
+                    console.log("重構的資料", cleanData);
+                    //將目前頁的資料畫到表格上的功能
+                    renderTable();
+                    renderPagination();
+
+                })
+                //前面不可以有分號
+                .catch(function (error) {
+                    console.log(error);
+                })
+                .finally(function () { });
+            //監聽頁碼要寫在主程式
+            // .pagination中有點.page-item時的資料抓出來
+            $(".pagination").on("click", ".page-item", function () {
+                console.log($(this).data("page"));
+                let totalPage = Math.ceil(cleanData.length / pageSize);
+                let page = Number($(this).data("page"));
+                //判斷第一頁的時候，上一頁無法點
+                if (page < 1 || page > totalPage) {
+                    return; //頁數為0時中止
+                }
+                currentPage = page;
+                renderTable();
+                renderPagination();
+
+            });
+
+            //監聽頁數下拉式選單
+            $("#pageSizeSelect").on ("change", function(){
+                console.log($(this).val());
+                pageSize = Number($(this).val());
+                //變更時都固定在第一頁
+                currentPage = 1;
+                renderTable();
+                renderPagination();
+
+            });
+
+        });
+
+
+        //先將該頁的內容過濾出來
+        function renderTable() {
+            $("#datalist").empty();
+            //先將該頁的內容島出來
+            //筆數的第一筆位置從0開始
+            let start = (currentPage - 1) * pageSize;
+            let end = start + pageSize;
+            let pageData = cleanData.slice(start, end)
+
+            //將資料渲染到table
+            pageData.forEach(function (item) {
+
+                let strHTML = `<tr>
+                                <td data-th="產品編號">${item.id}</td>
+                                <td data-th="產品名稱">${item.pname}</td>
+                                <td data-th="產品數量">${item.pnum}</td>
+                                <td data-th="產品餅皮">${item.pskin}</td>
+                                <td data-th="產品尺寸">${item.psize}</td>
+                                <td data-th="選擇配料">${item.topping}</td>
+                                <td data-th="供應方式">${item.method}</td>
+                                <td data-th="產品狀態">
+                                    <span class="${(item.pstatus || "").includes("已上架") ? "status-up" : "status-down"}">${item.pstatus}</span>
+                                </td>
+                                <td data-th="建檔時間">${item.created_at}</td>
+                               </tr>`;
+
+                $("#datalist").append(strHTML);
+
+            })
+
+        };
+
+        // 計算資料會分成幾頁
+        function renderPagination() {
+            //與數學有關的變數Math,  Math.ceil無條件進位
+            let strHTML = "";
+            //加上一頁
+            strHTML += `<li class="page-item ${currentPage == 1 ? 'disabled' : ""}" data-page="${currentPage - 1}"><a class="page-link">上一頁</a></li>`
+            //數字頁碼
+            let totalPage = Math.ceil(cleanData.length / pageSize)
+            for (let i = 1; i <= totalPage; i++) {
+                //設定頁數的元件的監聽 data-page="${i}
+                //只要被當前頁數會被active顏色標示 ${currentPage == i ? 'active' : ''
+                strHTML += `<li class="page-item ${currentPage == i ? 'active' : ''}" data-page="${i}"><a class="page-link" href="#">${i}</a></li>`
+            }
+            //加下一頁
+            strHTML += `<li class="page-item ${currentPage == totalPage ? 'disabled' : ""}" data-page="${currentPage + 1}"><a class="page-link" >下一頁</a></li>`
+
+            $("#pagination").html(strHTML);
+        };
+
+    </script>
+
+</body>
+
+</html>
